@@ -4,8 +4,8 @@ const files = fs.readdirSync(__dirname);
 const exports = {};
 
 files.forEach(file => {
-  if (file.endsWith('.ts') && file !== 'index.ts') {
-    const moduleName = file.replace('.ts', '');
+  if (file.endsWith('.js') && file !== 'index.ts') {
+    const moduleName = file.replace('.js', '');
     const module = require(`./${moduleName}`);
     
     Object.keys(module).forEach(key => {
