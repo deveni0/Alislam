@@ -11,5 +11,5 @@ export async function txtQuran(surahNumber: number): Promise<string> {
   const response = await fetch(url);
   const data: QuranSurah = await response.json();
   
-  return data.text;
+  return data;
 }
