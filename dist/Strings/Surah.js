@@ -16,7 +16,7 @@ function Surah(surahNumber) {
         const url = `https://raw.githubusercontent.com/deveni0/deen-storage/refs/heads/main/TEXTS/Surahs/${formattedNumber}.json`;
         const response = yield fetch(url);
         const data = yield response.json();
-        return data.text;
+        return data;
     });
 }
 exports.Surah = Surah;
