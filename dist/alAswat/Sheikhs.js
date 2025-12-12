@@ -12,14 +12,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Sheikhs = void 0;
 function Sheikhs(sheikhName, surahNumber) {
     return __awaiter(this, void 0, void 0, function* () {
-        const url = `https://raw.githubusercontent.com/deveni0/deen-storage/refs/heads/main/Voices/Sheikhs/${sheikhName}.json`;
-        const response = yield fetch(url);
-        const data = yield response.json();
+        const audioUrl = `https://raw.githubusercontent.com/deveni0/deen-storage/refs/heads/main/Voices/Sheikhs/${sheikhName}.json`;
+        const imagesUrl = 'https://raw.githubusercontent.com/deveni0/deen-storage/refs/heads/main/Voices/Sheikhs/images.json';
+        const [audioResponse, imagesResponse] = yield Promise.all([
+            fetch(audioUrl),
+            fetch(imagesUrl)
+        ]);
+        const audioData = yield audioResponse.json();
+        const imagesData = yield imagesResponse.json();
+        const sheikhImage = (imagesData.find(img => img.name === sheikhName)?.image) || '';
         if (surahNumber) {
-            const surah = data.find(item => item.surah === surahNumber);
+            const surah = audioData.find(item => item.surah === surahNumber);
             return surah ? surah.url : '';
         }
-        return data;
+        return {
+            audio: audioData,
+            image: sheikhImage
+        };
     });
 }
 exports.Sheikhs = Sheikhs;
