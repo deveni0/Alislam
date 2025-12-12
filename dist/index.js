@@ -22,14 +22,13 @@ folders.forEach(folder => {
       Object.keys(module).forEach(key => {
         if (key !== 'default' && key !== '__esModule') {
           folderExports[key] = module[key];
+          mainExports[key] = module[key];
         }
       });
     }
   });
   
-  if (Object.keys(folderExports).length > 0) {
-    mainExports[folder] = folderExports;
-  }
+  mainExports[folder] = folderExports;
 });
 
 module.exports = mainExports;
