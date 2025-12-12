@@ -1,4 +1,5 @@
 "use strict";
+
 import { readdirSync, statSync } from 'fs';
 import { join, basename } from 'path';
 import { fileURLToPath } from 'url';
@@ -16,7 +17,6 @@ const folders = readdirSync(__dirname).filter(item => {
 for (const folder of folders) {
     const folderPath = join(__dirname, folder);
     const files = readdirSync(folderPath);
-    
     const folderExports = {};
     
     for (const file of files) {
@@ -24,16 +24,17 @@ for (const folder of folders) {
             const moduleName = basename(file, '.js');
             const modulePath = `./${folder}/${moduleName}.js`;
             
-            try {
-                const mod = await import(modulePath);
-                folderExports[moduleName] = mod.default || mod;
-            } catch {
-            }
+            const mod = await import(modulePath);
+            const exportValue = mod[moduleName] || mod.default || mod;
+            
+            folderExports[moduleName] = exportValue;
+            exports[moduleName] = exportValue;
         }
     }
     
     if (Object.keys(folderExports).length > 0) {
         mainExports[folder] = folderExports;
+        exports[folder] = folderExports;
     }
 }
 
