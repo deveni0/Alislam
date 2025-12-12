@@ -15,7 +15,6 @@ const folders = readdirSync(__dirname).filter(item => {
 for (const folder of folders) {
     const folderPath = join(__dirname, folder);
     const files = readdirSync(folderPath);
-    
     const folderExports: Record<string, any> = {};
     
     for (const file of files) {
@@ -25,20 +24,19 @@ for (const folder of folders) {
             file !== 'index.ts') {
             
             const moduleName = basename(file, file.endsWith('.ts') ? '.ts' : '.js');
-            const extension = file.endsWith('.ts') ? '.ts' : '.js';
-            const modulePath = `./${folder}/${moduleName}${extension}`;
+            const modulePath = `./${folder}/${moduleName}.js`;
             
-            try {
-                const mod = await import(modulePath);
-                folderExports[moduleName] = mod.default || mod;
-            } catch (error) {
-                console.error(`Error loading module ${modulePath}:`, error);
-            }
+            const mod = await import(modulePath);
+            const exportValue = mod[moduleName] || mod.default || mod;
+            
+            folderExports[moduleName] = exportValue;
+            (exports as any)[moduleName] = exportValue;
         }
     }
     
     if (Object.keys(folderExports).length > 0) {
         mainExports[folder] = folderExports;
+        (exports as any)[folder] = folderExports;
     }
 }
 
