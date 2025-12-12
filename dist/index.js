@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = join(__filename, '..');
 
 const mainExports = {};
-const namedExports = {};
+const allExports = {};
 
 const folders = readdirSync(__dirname).filter(item => {
     const full = join(__dirname, item);
@@ -29,18 +29,17 @@ for (const folder of folders) {
             const exportValue = mod[moduleName] || mod.default || mod;
             
             folderExports[moduleName] = exportValue;
-            namedExports[moduleName] = exportValue;
+            allExports[moduleName] = exportValue;
         }
     }
     
     if (Object.keys(folderExports).length > 0) {
         mainExports[folder] = folderExports;
-        namedExports[folder] = folderExports;
+        allExports[folder] = folderExports;
     }
 }
 
 export default mainExports;
 
-for (const [key, value] of Object.entries(namedExports)) {
-    export { value as [key] };
-}
+export const Strings = mainExports.Strings || {};
+export const alAswat = mainExports.alAswat || {};
