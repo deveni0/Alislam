@@ -21,12 +21,16 @@ folders.forEach(folder => {
       const module = require(modulePath);
       
       Object.keys(module).forEach(key => {
-        folderExports[key] = module[key];
+        if (key !== 'default' && key !== '__esModule') {
+          folderExports[key] = module[key];
+        }
       });
     }
   });
   
-  mainExports[folder] = folderExports;
+  if (Object.keys(folderExports).length > 0) {
+    mainExports[folder] = folderExports;
+  }
 });
 
 module.exports = mainExports;
