@@ -1,5 +1,5 @@
 {
-  "name": "@veni/alislam",
+  "name": "@alislam",
   "version": "1.0.0",
   "description": "TypeScript library for Islamic religious tools and dates",
   "main": "dist/index.js",
