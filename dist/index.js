@@ -27,8 +27,7 @@ for (const folder of folders) {
             try {
                 const mod = await import(modulePath);
                 folderExports[moduleName] = mod.default || mod;
-            } catch (error) {
-                console.error(`Error loading module ${modulePath}:`, error);
+            } catch {
             }
         }
     }
