@@ -3,16 +3,32 @@ export interface SurahAudio {
   url: string;
 }
 
-export async function Sheikhs(sheikhName: string, surahNumber?: number): Promise<string | SurahAudio[]> {
-  const url = `https://raw.githubusercontent.com/deveni0/deen-storage/refs/heads/main/Voices/Sheikhs/${sheikhName}.json`;
+export interface SheikhInfo {
+  name: string;
+  image: string;
+}
+
+export async function Sheikhs(sheikhName: string, surahNumber?: number): Promise<string | { audio: SurahAudio[], image: string }> {
+  const audioUrl = `https://raw.githubusercontent.com/deveni0/deen-storage/refs/heads/main/Voices/Sheikhs/${sheikhName}.json`;
+  const imagesUrl = 'https://raw.githubusercontent.com/deveni0/deen-storage/refs/heads/main/Voices/Sheikhs/images.json';
   
-  const response = await fetch(url);
-  const data: SurahAudio[] = await response.json();
+  const [audioResponse, imagesResponse] = await Promise.all([
+    fetch(audioUrl),
+    fetch(imagesUrl)
+  ]);
+  
+  const audioData: SurahAudio[] = await audioResponse.json();
+  const imagesData: SheikhInfo[] = await imagesResponse.json();
+  
+  const sheikhImage = imagesData.find(img => img.name === sheikhName)?.image || '';
   
   if (surahNumber) {
-    const surah = data.find(item => item.surah === surahNumber);
+    const surah = audioData.find(item => item.surah === surahNumber);
     return surah ? surah.url : '';
   }
   
-  return data;
+  return {
+    audio: audioData,
+    image: sheikhImage
+  };
 }
