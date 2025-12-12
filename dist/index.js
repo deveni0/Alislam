@@ -26,7 +26,6 @@ folders.forEach(folder => {
         mainExports[folder] = folderExports;
     }
 });
-exports.default = mainExports;
 Object.keys(mainExports).forEach(key => {
     exports[key] = mainExports[key];
 });
