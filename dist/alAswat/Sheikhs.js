@@ -23,7 +23,10 @@ function Sheikhs(sheikhName, surahNumber) {
         const sheikhImage = (imagesData.find(img => img.name === sheikhName)?.image) || '';
         if (surahNumber) {
             const surah = audioData.find(item => item.surah === surahNumber);
-            return surah ? surah.url : '';
+            return {
+                url: surah ? surah.url : '',
+                image: sheikhImage
+            };
         }
         return {
             audio: audioData,
