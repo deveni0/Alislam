@@ -19,9 +19,14 @@ for (const folder of folders) {
     const folderExports: Record<string, any> = {};
     
     for (const file of files) {
-        if (file.endsWith('.js') && file !== 'index.js') {
-            const moduleName = basename(file, '.js');
-            const modulePath = `./${folder}/${moduleName}.js`;
+        if ((file.endsWith('.js') || file.endsWith('.ts')) && 
+            !file.includes('.d.ts') && 
+            file !== 'index.js' && 
+            file !== 'index.ts') {
+            
+            const moduleName = basename(file, file.endsWith('.ts') ? '.ts' : '.js');
+            const extension = file.endsWith('.ts') ? '.ts' : '.js';
+            const modulePath = `./${folder}/${moduleName}${extension}`;
             
             try {
                 const mod = await import(modulePath);
