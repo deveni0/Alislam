@@ -1,8 +1,9 @@
 {
-  "name": "@alislam",
+  "name": "@veni/alislam",
   "version": "1.0.0",
   "description": "TypeScript library for Islamic religious tools and dates",
   "main": "dist/index.js",
+  "type": "module",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
@@ -13,11 +14,10 @@
     "islamic",
     "hijri",
     "prayer",
-    "dates",
-    "library",
-    "typescript",
+    "halal",
     "ramadan",
-    "eid"
+    "eid",
+    "quran"
   ],
   "author": "VENi",
   "license": "MIT",
@@ -36,6 +36,6 @@
     "typescript": "^5.0.0"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.0.0"
   }
 }
