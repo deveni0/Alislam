@@ -1,36 +1,40 @@
-import fs from 'fs';
-import path from 'path';
+import { readdirSync, statSync } from 'fs';
+import { join, basename } from 'path';
+import { fileURLToPath } from 'url';
 
-const mainExports: any = {};
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = join(__filename, '..');
 
-const folders = fs.readdirSync(__dirname).filter(item => {
-  const itemPath = path.join(__dirname, item);
-  return fs.statSync(itemPath).isDirectory();
+const mainExports: Record<string, any> = {};
+
+const folders = readdirSync(__dirname).filter(item => {
+    const full = join(__dirname, item);
+    return statSync(full).isDirectory();
 });
 
-folders.forEach(folder => {
-  const folderExports: any = {};
-  const folderPath = path.join(__dirname, folder);
-  const files = fs.readdirSync(folderPath);
-  
-  files.forEach(file => {
-    if (file.endsWith('.ts') && file !== 'index.ts') {
-      const moduleName = path.basename(file, '.ts');
-      const modulePath = `./${folder}/${moduleName}`;
-      
-      const module = require(modulePath);
-      
-      Object.keys(module).forEach(key => {
-        if (key !== 'default' && key !== '__esModule') {
-          folderExports[key] = module[key];
+for (const folder of folders) {
+    const folderPath = join(__dirname, folder);
+    const files = readdirSync(folderPath);
+    
+    const folderExports: Record<string, any> = {};
+    
+    for (const file of files) {
+        if (file.endsWith('.js') && file !== 'index.js') {
+            const moduleName = basename(file, '.js');
+            const modulePath = `./${folder}/${moduleName}.js`;
+            
+            try {
+                const mod = await import(modulePath);
+                folderExports[moduleName] = mod.default || mod;
+            } catch (error) {
+                console.error(`Error loading module ${modulePath}:`, error);
+            }
         }
-      });
     }
-  });
-  
-  if (Object.keys(folderExports).length > 0) {
-    mainExports[folder] = folderExports;
-  }
-});
+    
+    if (Object.keys(folderExports).length > 0) {
+        mainExports[folder] = folderExports;
+    }
+}
 
-module.exports = mainExports;
+export default mainExports;
