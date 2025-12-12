@@ -1,5 +1,3 @@
-"use strict";
-
 import { readdirSync, statSync } from 'fs';
 import { join, basename } from 'path';
 import { fileURLToPath } from 'url';
@@ -27,15 +25,7 @@ for (const folder of folders) {
             
             try {
                 const mod = await import(modulePath);
-                
-                if (mod.default && typeof mod.default === 'function') {
-                    folderExports[moduleName] = mod.default;
-                } else if (mod[moduleName] && typeof mod[moduleName] === 'function') {
-                    folderExports[moduleName] = mod[moduleName];
-                } else {
-                    folderExports[moduleName] = mod;
-                }
-                
+                folderExports[moduleName] = mod.default;
             } catch (error) {
                 console.error(`Error loading module ${modulePath}:`, error);
             }
