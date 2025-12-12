@@ -1,5 +1,3 @@
-"use strict";
-
 import { readdirSync, statSync } from 'fs';
 import { join, basename } from 'path';
 import { fileURLToPath } from 'url';
@@ -25,17 +23,27 @@ for (const folder of folders) {
             const modulePath = `./${folder}/${moduleName}.js`;
             
             const mod = await import(modulePath);
-            const exportValue = mod[moduleName] || mod.default || mod;
-            
-            folderExports[moduleName] = exportValue;
-            exports[moduleName] = exportValue;
+            folderExports[moduleName] = mod[moduleName] || mod.default || mod;
         }
     }
     
     if (Object.keys(folderExports).length > 0) {
         mainExports[folder] = folderExports;
-        exports[folder] = folderExports;
     }
 }
 
 export default mainExports;
+
+if (mainExports.Strings) {
+    export const Strings = mainExports.Strings;
+    if (mainExports.Strings.Surah) {
+        export const Surah = mainExports.Strings.Surah;
+    }
+}
+
+if (mainExports.alAswat) {
+    export const alAswat = mainExports.alAswat;
+    if (mainExports.alAswat.Sheikhs) {
+        export const Sheikhs = mainExports.alAswat.Sheikhs;
+    }
+}
