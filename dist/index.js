@@ -26,4 +26,5 @@ folders.forEach(folder => {
         mainExports[folder] = folderExports;
     }
 });
+exports.default = mainExports;
 module.exports = mainExports;
