@@ -13,47 +13,43 @@ const folders = fs.readdirSync(__dirname).filter(item => {
 folders.forEach(folder => {
     const folderPath = path.join(__dirname, folder);
     const files = fs.readdirSync(folderPath);
+    
     const folderExports = {};
-
+    
     files.forEach(file => {
         if (file.endsWith(".js") && file !== "index.js") {
             const moduleName = path.basename(file, ".js");
-            const modulePath = path.join(folderPath, file);
-            const mod = require(modulePath);
+            const modulePath = `./${folder}/${moduleName}`;
+            let mod = require(modulePath);
             
-            let value = mod;
-            
-            if (value && typeof value === 'object') {
-                const clonedValue = { ...value };
+            if (mod && typeof mod === "object") {
+                if ('default' in mod && !mod.__esModule) {
+                    mod = mod.default;
+                }
                 
-                if ('default' in clonedValue) {
-                    value = clonedValue.default;
-                } else if (clonedValue.__esModule) {
-                    delete clonedValue.__esModule;
+                if (mod && typeof mod === "object") {
+                    const { __esModule, ...rest } = mod;
                     
-                    if (Object.keys(clonedValue).length === 1 && clonedValue[moduleName]) {
-                        value = clonedValue[moduleName];
-                    } else if (Object.keys(clonedValue).length > 0) {
-                        value = clonedValue;
+                    if (Object.keys(rest).length === 0 && mod.default) {
+                        mod = mod.default;
+                    } else if (Object.keys(rest).length === 1 && rest[moduleName]) {
+                        mod = rest[moduleName];
+                    } else if (Object.keys(rest).length > 0) {
+                        mod = rest;
                     }
-                } else if (clonedValue[moduleName]) {
-                    value = clonedValue[moduleName];
+                }
+                
+                if (mod && typeof mod === "object" && mod[moduleName]) {
+                    mod = mod[moduleName];
                 }
             }
             
-            if (value && typeof value === 'object' && value.__esModule) {
-                const { __esModule, ...rest } = value;
-                value = Object.keys(rest).length === 1 && rest[moduleName] ? rest[moduleName] : rest;
-            }
-            
-            folderExports[moduleName] = value;
+            folderExports[moduleName] = mod;
         }
     });
-
+    
     if (Object.keys(folderExports).length > 0) {
-        mainExports[folder] = Object.keys(folderExports).length === 1 
-            ? folderExports[Object.keys(folderExports)[0]]
-            : folderExports;
+        mainExports[folder] = folderExports;
     }
 });
 
