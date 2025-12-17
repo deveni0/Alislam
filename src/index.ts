@@ -1,3 +1,2 @@
-export function hello() {
-  return "السلام عليكم ورحمة الله وبركاته";
-}
+export * as alaswat from "./alAswat";
+export * as texts from "./texts";
