@@ -1,43 +1,63 @@
 {
-  "name": "@veni/alislam",
+  "name": "@quran/alislam",
   "version": "1.0.0",
-  "description": "TypeScript library for Islamic religious tools and dates",
-  "main": "dist/index.js",
-  "type": "module",
-  "types": "dist/index.d.ts",
-    "scripts": {
-    "build": "tsc",
-    "dev": "tsx src/index.ts",
-    "start": "node dist/index.js"
+  "description": "Islamic utilities: Quran, Hadith, Duas, Adhkar",
+  
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
   },
-  "keywords": [
-    "religious",
-    "islamic",
-    "hijri",
-    "prayer",
-    "halal",
-    "ramadan",
-    "eid",
-    "quran"
-  ],
-  "author": "VENi",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yourusername/religious-library.git"
+
+  "files": ["dist"],
+
+  "scripts": {
+    "build": "tsup",
+    "prepublishOnly": "npm run build",
+    "dev": "tsup --watch"
   },
-  "bugs": {
-    "url": "https://github.com/yourusername/religious-library/issues"
-  },
-  "homepage": "https://github.com/yourusername/religious-library#readme",
-  "files": [
-    "dist/**/*"
-  ],
-  "devDependencies": {
-    "typescript": "^5.0.0",
-    "tsx": "^4.0.0"
-  },
+
   "engines": {
     "node": ">=18.0.0"
+  },
+
+  "keywords": [
+    "quran",
+    "islam",
+    "hadith",
+    "dua",
+    "adhkar",
+    "azkar",
+    "islamic",
+    "quran-api",
+    "nodejs",
+    "typescript",
+    "esm",
+    "cjs"
+  ],
+
+  "author": "zaadevofc",
+  "license": "MIT",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deveni0/Alislam"
+  },
+
+  "bugs": {
+    "url": "https://github.com/deveni0/Alislam/issues"
+  },
+
+  "homepage": "https://github.com/deveni0/Alislam#readme",
+
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "tsup": "^8.0.0"
   }
 }
