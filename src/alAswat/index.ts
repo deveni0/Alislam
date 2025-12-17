@@ -1,0 +1,1 @@
+export { surShuyukh } from "./surShuyukh";
