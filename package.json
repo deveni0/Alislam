@@ -2,11 +2,9 @@
   "name": "@quran/alislam",
   "version": "1.0.0",
   "description": "Islamic utilities: Quran, Hadith, Duas, Adhkar",
-  
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -14,20 +12,16 @@
       "import": "./dist/index.mjs"
     }
   },
-
   "files": ["dist"],
-
   "scripts": {
     "build": "tsup",
     "prepare": "npm run build",
     "prepublishOnly": "npm run build",
     "dev": "tsup --watch"
   },
-
   "engines": {
     "node": ">=18.0.0"
   },
-
   "keywords": [
     "quran",
     "islam",
@@ -42,21 +36,16 @@
     "esm",
     "cjs"
   ],
-
   "author": "venixov",
   "license": "MIT",
-
   "repository": {
     "type": "git",
     "url": "https://github.com/deveni0/Alislam"
   },
-
   "bugs": {
     "url": "https://github.com/deveni0/Alislam/issues"
   },
-
   "homepage": "https://github.com/deveni0/Alislam#readme",
-
   "devDependencies": {
     "typescript": "^5.4.0",
     "tsup": "^8.0.0"
