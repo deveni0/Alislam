@@ -1,4 +1,4 @@
-export const surah = async (num: number): Promise<any> => {
+export const Surah = async (num: number): Promise<any> => {
   const surahs: any[] = await (await fetch(
     "https://raw.githubusercontent.com/deveni0/deen-storage/refs/heads/main/TEXTS/Surahs.json"
   )).json();
