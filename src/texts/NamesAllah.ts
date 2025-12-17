@@ -6,7 +6,7 @@ interface AllahName {
   text_en: string;
 }
 
-export const getNameOfAllah = async (num: number): Promise<AllahName> => {
+export const nameallah = async (num: number): Promise<AllahName> => {
   const names: AllahName[] = await (await fetch(
     "https://raw.githubusercontent.com/deveni0/deen-storage/refs/heads/main/TEXTS/Names_Allah.json"
   )).json();
