@@ -13,7 +13,7 @@ interface Hadith {
   urdu: string;
 }
 
-export const getHadith = async (num: number): Promise<Hadith> => {
+export const hadith = async (num: number): Promise<Hadith> => {
   const hadiths: Hadith[] = await (await fetch(
     "https://raw.githubusercontent.com/deveni0/deen-storage/refs/heads/main/TEXTS/hadiths.json"
   )).json();
