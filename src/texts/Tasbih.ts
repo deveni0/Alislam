@@ -9,7 +9,7 @@ interface TasbihResponse {
   array: TasbihItem[];
 }
 
-export const getTasbih = async (): Promise<TasbihResponse> => {
+export const tasbih = async (): Promise<TasbihResponse> => {
   const array: TasbihItem[] = await (await fetch(
     "https://raw.githubusercontent.com/deveni0/deen-storage/refs/heads/main/TEXTS/tasbih.json"
   )).json();
