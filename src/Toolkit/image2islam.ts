@@ -1,8 +1,11 @@
-import { CONFIG } from "../../config";
-interface IslamicClothingResult {
+interface ApiResponse {
+  code: number;
   status: string;
-  result_url: string;
-  task_id: string;
+  data: {
+    status: string;
+    result_url: string;
+    task_id: string;
+  };
 }
 
 interface StyleConfig {
@@ -27,7 +30,7 @@ const styles: Record<string, StyleConfig> = {
   }
 };
 
-export const image2islam = async (image_url: string, style: keyof typeof styles): Promise<IslamicClothingResult> => {
+export const image2islam = async (image_url: string, style: keyof typeof styles): Promise<ApiResponse['data']> => {
   const response = await fetch(`${CONFIG.QURAN_API}/nano-banana`, {
     method: 'POST',
     headers: {
@@ -39,5 +42,6 @@ export const image2islam = async (image_url: string, style: keyof typeof styles)
     })
   });
 
-  return response.json();
+  const result: ApiResponse = await response.json();
+  return result.data;
 };
