@@ -7,16 +7,25 @@
  5 → prayer
 */
 
-type AzkarType = 1 | 2 | 3 | 4 | 5 | 'morning' | 'evening' | 'sleeping' | 'food' | 'prayer';
-
 export const AzkAr = async (type: AzkarType): Promise<any[]> => {
-  const azkar: any[][] = await (await fetch(
-    "https://raw.githubusercontent.com/deveni0/deen-storage/refs/heads/main/TEXTS/Azkar.json"
-  )).json();
-  
-  const index = typeof type === 'string' 
-    ? { morning: 0, evening: 1, sleeping: 2, food: 3, prayer: 4 }[type]
-    : type - 1;
+  const categoryMap = {
+    1: 'morning', 2: 'evening', 3: 'sleeping', 
+    4: 'food', 5: 'prayer',
+    morning: 'morning', evening: 'evening', 
+    sleeping: 'sleeping', food: 'food', prayer: 'prayer'
+  };
+
+  try {
+    const response = await fetch(
+      "https://raw.githubusercontent.com/deveni0/deen-storage/refs/heads/main/TEXTS/Azkar.json"
+    );
     
-  return azkar[index];
+    const data = await response.json();
+    const categoryKey = categoryMap[type];
+    
+    return data[0]?.[categoryKey]?.array || [];
+    
+  } catch {
+    return [];
+  }
 };
