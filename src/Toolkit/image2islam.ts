@@ -1,4 +1,4 @@
-import { API_CONFIG } from "../../config";
+import { CONFIG } from "../../config";
 interface IslamicClothingResult {
   status: string;
   result_url: string;
