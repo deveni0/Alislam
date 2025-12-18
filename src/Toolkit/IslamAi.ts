@@ -1,3 +1,6 @@
+import { CONFIG } from "../../config";
+
+
 type AskIslamicAIOptions = {
   search?: boolean;
   image?: string;
@@ -11,7 +14,7 @@ export const IslamicAI = async (
     const query = typeof question === 'string' ? question : '';
     const opts = typeof question === 'object' ? question : options || {};
     
-    const response = await fetch('https://quran-muslims.vercel.app/api/chat', {
+    const response = await fetch(`${CONFIG.QURAN_API}/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
