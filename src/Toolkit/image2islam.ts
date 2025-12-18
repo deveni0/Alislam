@@ -1,3 +1,4 @@
+import { API_CONFIG } from "../../config";
 interface IslamicClothingResult {
   status: string;
   result_url: string;
@@ -27,7 +28,7 @@ const styles: Record<string, StyleConfig> = {
 };
 
 export const image2islam = async (image_url: string, style: keyof typeof styles): Promise<IslamicClothingResult> => {
-  const response = await fetch('https://quran-muslims.vercel.app/api/nano-banana', {
+  const response = await fetch(`${CONFIG.QURAN_API}/nano-banana`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
