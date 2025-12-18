@@ -1,4 +1,4 @@
-import { CONFIG } from "../../config";
+import { CONFIG } from "../config";
 
 export const PrayerTimings = async (body: any): Promise<any | null> => {
   try {
