@@ -1,2 +1,2 @@
 export { PrayerTimings } from "./PrayerTimings";
-export { IslamicAI } from "./IslamicAi";
+export { IslamicAI } from "./IslamAi";
