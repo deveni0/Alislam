@@ -1,6 +1,8 @@
+import { CONFIG } from "../../config";
+
 export const PrayerTimings = async (body: any): Promise<any | null> => {
   try {
-    const response = await fetch('https://quran-muslims.vercel.app/api/timingsByCity', {
+    const response = await fetch(`${CONFIG.QURAN_API}/timingsByCity`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
