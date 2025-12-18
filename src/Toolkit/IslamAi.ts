@@ -3,7 +3,7 @@ type AskIslamicAIOptions = {
   image?: string;
 };
 
-export const askIslamicAI = async (
+export const IslamicAI = async (
   question: string | AskIslamicAIOptions, 
   options?: AskIslamicAIOptions
 ): Promise<string | null> => {
