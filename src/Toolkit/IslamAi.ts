@@ -1,5 +1,4 @@
-import { CONFIG } from "../../config";
-
+import { CONFIG } from "../config";
 
 type AskIslamicAIOptions = {
   search?: boolean;
