@@ -1,6 +1,8 @@
+import { CONFIG } from "../../config";
+
 export const searchQuran = async (body: any): Promise<any | null> => {
   try {
-    const response = await fetch('https://quran-muslims.vercel.app/api/quran/search', {
+    const response = await fetch(`${CONFIG.QURAN_API}/quran/search`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
