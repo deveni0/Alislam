@@ -1,0 +1,1 @@
+export { QuranImage } from "./QuranImage";
