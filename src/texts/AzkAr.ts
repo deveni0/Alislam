@@ -20,7 +20,7 @@ const categoryMap: Record<AzkarType, string> = {
 export const AzkAr = async (type: AzkarType): Promise<any[]> => {
   try {
     const response = await fetch(
-      "https://raw.githubusercontent.com/deveni0/deen-storage/refs/heads/main/TEXTS/Azkar.json"
+      "https://raw.githubusercontent.com/deveni0/deen-storage/refs/heads/main/TEXTS/AzkAr.json"
     );
     const data = await response.json();
     return data[0]?.[categoryMap[type]]?.array || [];
