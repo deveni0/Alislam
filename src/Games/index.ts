@@ -1,3 +1,3 @@
-export { surShuyukh } from "./surShuyukh";
-export { Radio } from "./radio";
-export { Anasheed } from "./Anasheed";
+export { Questions } from "./Questions";
+export { namesAllah } from "./namesAllah";
+export { verseGame } from "./verseGame";
